@@ -271,6 +271,65 @@ export default async function handler(req, res) {
       });
     }
 
+    
+    // Admin login
+    if (action === 'admin-login') {
+      // Hardcoded admin credentials
+      const hardcodedAdmins = [
+        { 
+          email: 'admin@propamit.com', 
+          password: 'admin123',
+          name: 'System Administrator'
+        },
+        { 
+          email: 'darlingtonodom@gmail.com', 
+          password: 'Coldwizkid',
+          name: 'Darlington Odom'
+        },
+        { 
+          email: 'support@propamit.com', 
+          password: 'support123',
+          name: 'Support Administrator'
+        }
+      ];
+
+      const admin = hardcodedAdmins.find(admin => 
+        admin.email === email && admin.password === password
+      );
+
+      if (!admin) {
+        return res.status(401).json({ 
+          success: false, 
+          message: 'Invalid admin credentials' 
+        });
+      }
+
+      // Create JWT token
+      const adminToken = jwt.sign(
+        { 
+          adminId: admin.email, 
+          email: admin.email,
+          type: 'admin'
+        },
+        jwtSecret,
+        { expiresIn: '24h' }
+      );
+
+      console.log(`Admin login successful: ${admin.email} at ${new Date().toISOString()}`);
+
+      return res.status(200).json({
+        success: true,
+        message: 'Admin login successful',
+        token: adminToken,
+        admin: {
+          email: admin.email,
+          name: admin.name,
+          type: 'admin'
+        }
+      });
+    }
+
+
   } catch (error) {
     console.error('Auth error:', error);
     return res.status(500).json({ success: false, message: 'Internal server error' });
