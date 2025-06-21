@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head><title>Test Admin Login</title></head>
+<body>
+<h1>Testing Admin Login</h1>
+<div id="result"></div>
+<script>
+async function testAdminLogin() {
+  try {
+    const response = await fetch("https://propamit-backend.vercel.app/auth", {
+      method: "POST",
+      headers: { 
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        action: "admin-login",
+        email: "darlingtonodom@gmail.com",
+        password: "Coldwizkid"
+      })
+    });
+    
+    const data = await response.json();
+    
+    document.getElementById("result").innerHTML = `
+      <h3>Status: ${response.status}</h3>
+      <pre>${JSON.stringify(data, null, 2)}</pre>
+    `;
+  } catch (error) {
+    document.getElementById("result").innerHTML = `<h3>Error: ${error.message}</h3>`;
+  }
+}
+testAdminLogin();
+</script>
+</body>
+</html>
