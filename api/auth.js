@@ -99,6 +99,7 @@ export default async function handler(req, res) {
 
   const { action, email, password, name, phone, token } = req.body;
   
+  
   let client;
   try {
     client = await connectToDatabase();
