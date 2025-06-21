@@ -98,7 +98,8 @@ export default async function handler(req, res) {
   }
 
   const { action, email, password, name, phone, token } = req.body;
-  
+  console.log('AUTH.JS: Received request with action:', action);
+
   
   let client;
   try {
