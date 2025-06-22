@@ -1,11 +1,16 @@
-import { handleCors } from '../../utils/cors.js';
 import { MongoClient } from 'mongodb';
 import jwt from 'jsonwebtoken';
 
 export default async function handler(req, res) {
-  // Handle CORS
-  if (handleCors(req, res)) {
-    return; // Preflight request handled
+  // Set CORS headers directly
+  res.setHeader('Access-Control-Allow-Origin', 'https://propamit.com');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Accept');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
   }
   
   // Only allow POST method
