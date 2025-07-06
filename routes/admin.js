@@ -131,4 +131,39 @@ router.post('/reset-database', async (req, res) => {
     }
 });
 
+// DELETE /api/v1/admin/users/:id - Delete a user
+router.delete('/users/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const db = getDB();
+        const users = db.collection('users');
+        
+        // Convert string ID to ObjectId
+        const { ObjectId } = await import('mongodb');
+        const userId = new ObjectId(id);
+        
+        const result = await users.deleteOne({ _id: userId });
+        
+        if (result.deletedCount === 0) {
+            return res.status(404).json({
+                success: false,
+                message: 'User not found'
+            });
+        }
+        
+        res.json({
+            success: true,
+            message: 'User deleted successfully'
+        });
+        
+    } catch (error) {
+        console.error('Delete user error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Server error while deleting user'
+        });
+    }
+});
+
+
 export default router;
