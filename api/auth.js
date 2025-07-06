@@ -29,11 +29,11 @@ async function sendVerificationEmail(email, name, verificationToken) {
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,
-    subject: 'Verify Your LegitCar Account',
+    subject: 'Verify Your Propamit Account',
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h2 style="color: #0066cc;">Welcome to LegitCar, ${name}!</h2>
-        <p>Thank you for registering with LegitCar. Please verify your email address to complete your registration.</p>
+        <h2 style="color: #0066cc;">Welcome to Propamit, ${name}!</h2>
+        <p>Thank you for registering with Propamit. Please verify your email address to complete your registration.</p>
         <div style="text-align: center; margin: 30px 0;">
           <a href="${verificationUrl}" 
              style="background-color: #0066cc; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block;">
@@ -45,7 +45,7 @@ async function sendVerificationEmail(email, name, verificationToken) {
         <p>This link will expire in 24 hours.</p>
         <hr style="margin: 30px 0; border: none; border-top: 1px solid #eee;">
         <p style="color: #666; font-size: 12px;">
-          If you didn't create an account with LegitCar, please ignore this email.
+          If you didn't create an account with Propamit, please ignore this email.
         </p>
       </div>
     `
@@ -59,10 +59,10 @@ async function sendWelcomeEmail(email, name) {
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,
-    subject: 'Welcome to LegitCar - Your Account is Ready!',
+    subject: 'Welcome to Propamit - Your Account is Ready!',
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h2 style="color: #0066cc;">Welcome to LegitCar, ${name}!</h2>
+        <h2 style="color: #0066cc;">Welcome to Propamit, ${name}!</h2>
         <p>Your account has been successfully verified and is now ready to use.</p>
         <p>You can now:</p>
         <ul>
@@ -77,7 +77,7 @@ async function sendWelcomeEmail(email, name) {
             Access Your Dashboard
           </a>
         </div>
-        <p>Thank you for choosing LegitCar for your transportation documentation needs.</p>
+        <p>Thank you for choosing Propamit for your transportation documentation needs.</p>
       </div>
     `
   };
@@ -104,7 +104,7 @@ export default async function handler(req, res) {
   let client;
   try {
     client = await connectToDatabase();
-    const db = client.db('legitcar');
+    const db = client.db('propamit');
     const users = db.collection('users');
 
     // Register new user
@@ -248,11 +248,11 @@ export default async function handler(req, res) {
       const mailOptions = {
         from: process.env.EMAIL_USER,
         to: email,
-        subject: 'Reset Your LegitCar Password',
+        subject: 'Reset Your Propamit Password',
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #0066cc;">Password Reset Request</h2>
-            <p>You requested a password reset for your LegitCar account.</p>
+            <p>You requested a password reset for your Propamit account.</p>
             <div style="text-align: center; margin: 30px 0;">
               <a href="${resetUrl}" 
                  style="background-color: #0066cc; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block;">

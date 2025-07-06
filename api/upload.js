@@ -56,7 +56,7 @@ export default async function handler(req, res) {
 
     // Upload to Cloudinary
     const uploadResult = await cloudinary.uploader.upload(file.filepath, {
-      folder: 'legitcar/documents',
+      folder: 'propamit/documents',
       resource_type: 'auto',
       public_id: `${userId}_${Date.now()}`,
     });
@@ -64,7 +64,7 @@ export default async function handler(req, res) {
     // Save to database
     const client = new MongoClient(uri);
     await client.connect();
-    const db = client.db('legitcar');
+    const db = client.db('propamit');
 
     const document = {
       userId: new ObjectId(userId),

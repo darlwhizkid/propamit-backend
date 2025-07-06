@@ -49,7 +49,7 @@ export default async function handler(req, res) {
   let client;
   try {
     client = await connectToDatabase();
-    const db = client.db('legitcar');
+    const db = client.db('propamit');
     
     // Get user data
     const userId = decoded.userId;
