@@ -28,7 +28,7 @@ const verifyAdmin = (req, res, next) => {
 };
 
 // GET /api/v1/admin/users - Get all users
-router.get('/users',async (req, res) => {
+router.get('/users',verifyAdmin,async (req, res) => {
     try {
         const db = getDB();
         const users = await db.collection('users').find({}).toArray();
@@ -48,7 +48,7 @@ router.get('/users',async (req, res) => {
 });
 
 // GET /api/v1/admin/stats - Dashboard statistics
-router.get('/stats', async (req, res) => {
+router.get('/stats', verifyAdmin, async (req, res) => {
     try {
         const db = getDB();
         
@@ -77,7 +77,7 @@ router.get('/stats', async (req, res) => {
 });
 
 // GET /api/v1/admin/recent-activity - Recent activity
-router.get('/recent-activity', async (req, res) => {
+router.get('/recent-activity', verifyAdmin, async (req, res) => {
     try {
         const db = getDB();
         
@@ -103,7 +103,7 @@ router.get('/recent-activity', async (req, res) => {
 });
 
 // POST /api/v1/admin/reset-database
-router.post('/reset-database', async (req, res) => {
+router.post('/reset-database', verifyAdmin, async (req, res) => {
     try {
         const db = getDB();
         
@@ -132,7 +132,7 @@ router.post('/reset-database', async (req, res) => {
 });
 
 // DELETE /api/v1/admin/users/:id - Delete a user
-router.delete('/users/:id', async (req, res) => {
+router.delete('/users/:id', verifyAdmin, async (req, res) => {
     try {
         const { id } = req.params;
         const db = getDB();
