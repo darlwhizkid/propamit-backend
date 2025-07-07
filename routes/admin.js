@@ -165,5 +165,56 @@ router.delete('/users/:id', verifyAdmin, async (req, res) => {
     }
 });
 
+// POST /api/v1/admin/login - Admin login
+router.post('/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        
+        // Hardcoded admin credentials (you can enhance this later)
+        const adminCredentials = [
+            { email: 'admin@propamit.com', password: 'admin123' },
+            { email: 'darlingtonodom@gmail.com', password: 'Coldwizkid' },
+            { email: 'support@propamit.com', password: 'support123' }
+        ];
+        
+        const admin = adminCredentials.find(a => a.email === email && a.password === password);
+        
+        if (!admin) {
+            return res.status(401).json({
+                success: false,
+                message: 'Invalid admin credentials'
+            });
+        }
+        
+        // Create JWT token
+        const token = jwt.sign(
+            { 
+                email: admin.email, 
+                isAdmin: true 
+            }, 
+            jwtSecret, 
+            { expiresIn: '24h' }
+        );
+        
+        res.json({
+            success: true,
+            message: 'Admin login successful',
+            token: token,
+            admin: {
+                email: admin.email,
+                name: 'Administrator'
+            }
+        });
+        
+    } catch (error) {
+        console.error('Admin login error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Server error during admin login'
+        });
+    }
+});
+
+
 
 export default router;
