@@ -13,9 +13,9 @@ console.log('🔑 JWT_SECRET loaded:', process.env.JWT_SECRET ? 'YES' : 'NO');
 
 const app = express();
 
-// CORS configuration - Allow everything for development
+// CORS configuration - Allow all origins for testing
 app.use(cors({ 
-    origin: ['https://propamit.com', 'https://www.propamit.com', 'http://localhost:3000'],
+    origin: true, // Allow all origins
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -23,6 +23,10 @@ app.use(cors({
 
 
 app.use(express.json());
+
+// Handle preflight requests
+app.options('*', cors());
+
 
 // Serve static files from frontend (for testing)
 app.use(express.static('../LegitCar-Clean'));
