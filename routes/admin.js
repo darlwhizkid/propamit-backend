@@ -28,7 +28,7 @@ const verifyAdmin = (req, res, next) => {
 };
 
 // GET /api/v1/admin/users - Get all users
-router.get('/users',verifyAdmin,async (req, res) => {
+router.get('/users',async (req, res) => {
     try {
         const db = getDB();
         const users = await db.collection('users').find({}).toArray();
@@ -48,7 +48,7 @@ router.get('/users',verifyAdmin,async (req, res) => {
 });
 
 // GET /api/v1/admin/stats - Dashboard statistics
-router.get('/stats', verifyAdmin, async (req, res) => {
+router.get('/stats', async (req, res) => {
     try {
         const db = getDB();
         
@@ -77,7 +77,7 @@ router.get('/stats', verifyAdmin, async (req, res) => {
 });
 
 // GET /api/v1/admin/recent-activity - Recent activity
-router.get('/recent-activity', verifyAdmin, async (req, res) => {
+router.get('/recent-activity', async (req, res) => {
     try {
         const db = getDB();
         
