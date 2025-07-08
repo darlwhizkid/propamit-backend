@@ -54,6 +54,11 @@ async function sendVerificationEmail(email, name, verificationToken) {
 // POST /api/v1/auth/register
 router.post("/register", async (req, res) => {
   console.log("🚀 Registration route hit!", req.body);
+  console.log("Environment check:", {
+  mongoUri: process.env.MONGODB_URI ? "SET" : "NOT SET",
+  jwtSecret: process.env.JWT_SECRET ? "SET" : "NOT SET"
+});
+
 
   try {
     const { name, email, password, phone } = req.body;
