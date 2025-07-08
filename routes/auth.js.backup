@@ -65,8 +65,6 @@ router.post("/register", async (req, res) => {
       });
     }
 
-    // Ensure database connection
-    await connectDB();
     const db = getDB();
     const users = db.collection("users");
 
@@ -128,8 +126,6 @@ router.post("/login", async (req, res) => {
       });
     }
 
-    // Ensure database connection
-    await connectDB();
     const db = getDB();
     const users = db.collection("users");
 
@@ -208,8 +204,6 @@ router.post("/verify-email", async (req, res) => {
     const decoded = jwt.verify(token, jwtSecret);
     const email = decoded.email;
 
-    // Ensure database connection
-    await connectDB();
     const db = getDB();
     const users = db.collection("users");
 
